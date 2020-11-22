@@ -52,9 +52,52 @@ estudante.
       <h:outputLabel value="#{estudanteRegistrarBean.estudante.turno.equals(Turno.MATUTINO)}"/><br/>
       <h:outputLabel value="#{estudanteRegistrarBean.estudante.turno.equals(Turno.VESPERTINO)}"/><br/>
 
+      <!-- Trabalhando com Arrays -->
+      <h:outputLabel value="#{estudanteRegistrarBean.nomes[0]}"/>
+      <h:outputLabel value="#{estudanteRegistrarBean.nomes[1]}"/>
+      <h:outputLabel value="#{estudanteRegistrarBean.nomes[2]}"/><br/>
+
+      <!-- Iterando com os Arrays  ui:repeat-->
+      <ui:repeat value="#{estudanteRegistrarBean.nomes}" var="nome">
+            <h:outputLabel value="#{nome}"/><br/>
+      </ui:repeat>
+
+      <!-- Iterando com as Listas  ui:repeat-->
+      <h:outputLabel value="#{estudanteRegistrarBean.nomesFemininos.get(0)}"/>
+      <h:outputLabel value="#{estudanteRegistrarBean.nomesFemininos.get(1)}"/>
+      <h:outputLabel value="#{estudanteRegistrarBean.nomesFemininos.get(2)}"/><br/>
+
+      <!-- Iterando com os Arrays  ui:repeat-->
+      <ui:repeat value="#{estudanteRegistrarBean.nomesFemininos}" var="nomeF">
+            <h:outputLabel value="#{nomeF}"/><br/>
+      </ui:repeat>
+
+      <!-- Iterando com Set  Para versões anteriores tem que colocar um set com o toArray-->
+      <ui:repeat value="#{estudanteRegistrarBean.nomesSet}" var="nomeSet">
+            <h:outputLabel value="#{nomeSet}"/><br/>
+      </ui:repeat>
+
+      <!-- Iterando com Map  Para versões anteriores tem que colocar um set com o toArray-->
+      <h:outputLabel value="MAP"/><br/>
+      <h:outputLabel value="#{estudanteRegistrarBean.nomesMap.get('Goku')}"/><br/>
+      <h:outputLabel value="#{estudanteRegistrarBean.nomesMap.get('One Piece')}"/><br/>
+
+      <!-- Para essa versão do JSF não funcionou
+      <ui:repeat value="#{estudanteRegistrarBean.nomesMap.entrySet()}" var="entry">
+            <h:outputLabel value="#{entry.key}"/><br/>
+            <h:outputLabel value="#{entry.value}"/><br/>
+
+      </ui:repeat>
+      -->
+      #{estudanteRegistrarBean.executar()}
+      #{estudanteRegistrarBean.executar(estudanteRegistrarBean.estudante.nome)}
+      #{estudanteRegistrarBean.executar(estudanteRegistrarBean.executarRetorno(estudanteRegistrarBean.estudante.sobrenome))}
+
+      <h:form>
+            <h:commandButton value="ir para proxima Pagina"
+                             actionListener="#{estudanteRegistrarBean.irParaIndex2()}"/>
+      </h:form>
 
 </h:body>
-
-
 
 </html>
