@@ -6,6 +6,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
+<h:head>
+</h:head>
 
 <h:body>
 
@@ -96,8 +98,86 @@ estudante.
       <h:form>
             <h:commandButton value="ir para proxima Pagina"
                              actionListener="#{estudanteRegistrarBean.irParaIndex2()}"/>
+            <!-- Passando valores em EL para funções JS -->
+            <h:commandButton value="Soltar Magia" onclick="fazerMagica('Hadouken')" />
+            <h:commandButton value="Nome" onclick="alertaNome('#{estudanteRegistrarBean.estudante.nome}')" />
       </h:form>
 
+      <ui:repeat value="#{estudanteRegistrarBean.nomesFemininos}" var="nome" varStatus="status">
+
+            <h:outputLabel value="#{nome}" style="color: #{status.index mod 2 == 0 ? 'red' : 'green'}"/><br/>
+      </ui:repeat>
+
+      <!-- Manipulando Exibição com Rendered e Ajax -->
+      <h:form id="form">
+            <br/>
+            <h:commandButton value="Exibir Notas" >
+                  <f:ajax render="notasGrid" listener="${estudanteRegistrarBean.exibirNotas()}"/>
+            </h:commandButton>
+
+            <h:commandButton value="Esconder Notas" >
+                  <f:ajax render="notasGrid" listener="${estudanteRegistrarBean.esconderNotas()}"/>
+            </h:commandButton>
+
+
+            <br/>
+            <h:panelGrid id="notasGrid">
+                  <h:outputLabel value="#{estudanteRegistrarBean.estudante.nome}" />;
+                  <h:outputLabel value="#{estudanteRegistrarBean.estudante.sobrenome}" />;
+                  <h:outputLabel value="#{estudanteRegistrarBean.estudante.turno}" />;
+
+                  <h:outputLabel value="#{estudanteRegistrarBean.estudante.nota1}" rendered="#{estudanteRegistrarBean.mostrarNotas}"/>;
+                  <h:outputLabel value="#{estudanteRegistrarBean.estudante.nota2}" rendered="#{estudanteRegistrarBean.mostrarNotas}"/>;
+                  <h:outputLabel value="#{estudanteRegistrarBean.estudante.nota3}" rendered="#{estudanteRegistrarBean.mostrarNotas}"/>;
+            </h:panelGrid>
+            <br/>
+            <h:commandButton value="Exibir Link" >
+                  <f:ajax render="pgLink" listener="${estudanteRegistrarBean.exibirLink()}"/>
+            </h:commandButton>
+
+            <h:commandButton value="Esconder link" >
+                  <f:ajax render="pgLink" listener="${estudanteRegistrarBean.esconderLink()}"/>
+            </h:commandButton>
+
+            <h:panelGroup id="pgLink">
+                  <ui:fragment id="fragmentLink" rendered="#{estudanteRegistrarBean.mostrarLink}">
+                        <a href="http://www.google.com.br" target="_blank">www.google.com.br</a>
+                  </ui:fragment>
+            </h:panelGroup>
+
+      </h:form>
+
+      <!-- Expression Language Trabalhando com Lambda -->
+      #{(soma -> soma  + num)(10)}<br/>
+      #{((v1,v2,v3) -> v1*v2*v3)(1,5,10)}<br/>
+      #{(x->x*x*x)(2)}<br/>
+      #{cubo=(x->x*x*x); cubo(10)}<br/>
+
+      <!-- Passando EL para o Bean -->
+      <h:form>
+            <h:commandButton value="Calcular Cubo" >
+                  <f:actionListener="${estudanteRegistrarBean.calcularCubo((x->x*x*x),10)}" />
+            </h:commandButton>
+      </h:form>
+
+      <!--
+      Continuar a partir dos 9:30
+            https://www.youtube.com/watch?v=GI_6XQzrVic&list=PL62G310vn6nHSNpACkELWiPlM8J8z8t5J&index=12
+      -->
+
+
+
+
 </h:body>
+
+<script type="text/javascript">
+      function fazerMagica(magica){
+            alert(magica);
+      }
+
+      function alertaNome(nome){
+            alert(nome);
+      }
+</script>
 
 </html>

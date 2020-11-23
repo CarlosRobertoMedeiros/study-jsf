@@ -6,11 +6,15 @@ package br.com.roberto.studyjsf.bean.estudante;/*
 
 import br.com.roberto.studyjsf.model.Estudante;
 
+import javax.el.LambdaExpression;
+import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.*;
 
 @Named
+@ViewScoped
 public class EstudanteRegistrarBean implements Serializable {
 
 
@@ -19,6 +23,8 @@ public class EstudanteRegistrarBean implements Serializable {
     private List<String> nomesFemininos = Arrays.asList("Luciene", "Alves", "Medeiros");
     private Set<String> nomesSet = new HashSet<>(Arrays.asList("Francisco", "Assis", "Lima"));
     private Map<String, String> nomesMap = new HashMap<>();
+    private boolean mostrarNotas = false;
+    private boolean mostrarLink = false;
 
     {
         nomesMap.put("Goku", "Mais Forte");
@@ -32,24 +38,45 @@ public class EstudanteRegistrarBean implements Serializable {
 
     }
 
-    public void executar(){
+    public void executar() {
         System.out.println("Fazendo uma Busca no BD");
         System.out.println("Processando os dados");
         System.out.println("Exibindo os dados");
     }
 
-    public void executar(String parametro){
-        System.out.println("Fazendo uma Busca no BD "+parametro);
-        System.out.println("Processando os dados"+parametro);
-        System.out.println("Exibindo os dados"+parametro);
+    public void executar(String parametro) {
+        System.out.println("Fazendo uma Busca no BD " + parametro);
+        System.out.println("Processando os dados" + parametro);
+        System.out.println("Exibindo os dados" + parametro);
     }
 
-    public String executarRetorno(String parametro){
-        return "Apenas um teste "+parametro;
+    public String executarRetorno(String parametro) {
+        return "Apenas um teste " + parametro;
     }
 
-    public String irParaIndex2(){
+    public String irParaIndex2() {
         return "index2?faces-redirect=true";
+    }
+
+    public void exibirNotas() {
+        this.mostrarNotas = true;
+    }
+
+    public void esconderNotas() {
+        this.mostrarNotas = false;
+    }
+
+    public void exibirLink() {
+        this.mostrarLink = true;
+    }
+
+    public void esconderLink() {
+        this.mostrarLink = false;
+    }
+
+    public void
+    calcularCubo(LambdaExpression le, long value){
+        long result = (long) le.invoke(FacesContext.getCurrentInstance().getELContext(),value);
     }
 
     public Estudante getEstudante() {
@@ -90,5 +117,21 @@ public class EstudanteRegistrarBean implements Serializable {
 
     public void setNomesMap(Map<String, String> nomesMap) {
         this.nomesMap = nomesMap;
+    }
+
+    public boolean isMostrarNotas() {
+        return mostrarNotas;
+    }
+
+    public void setMostrarNotas(boolean mostrarNotas) {
+        this.mostrarNotas = mostrarNotas;
+    }
+
+    public boolean isMostrarLink() {
+        return mostrarLink;
+    }
+
+    public void setMostrarLink(boolean mostrarLink) {
+        this.mostrarLink = mostrarLink;
     }
 }
