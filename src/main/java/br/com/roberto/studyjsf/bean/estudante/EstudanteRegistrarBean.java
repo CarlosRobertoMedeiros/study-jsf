@@ -77,6 +77,7 @@ public class EstudanteRegistrarBean implements Serializable {
     public void
     calcularCubo(LambdaExpression le, long value){
         long result = (long) le.invoke(FacesContext.getCurrentInstance().getELContext(),value);
+        System.out.println("Resultado "+ result);
     }
 
     public Estudante getEstudante() {

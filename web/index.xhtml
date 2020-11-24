@@ -132,11 +132,11 @@ estudante.
             </h:panelGrid>
             <br/>
             <h:commandButton value="Exibir Link" >
-                  <f:ajax render="pgLink" listener="${estudanteRegistrarBean.exibirLink()}"/>
+                  <f:ajax render="pgLink" listener="#{estudanteRegistrarBean.exibirLink()}"/>
             </h:commandButton>
 
             <h:commandButton value="Esconder link" >
-                  <f:ajax render="pgLink" listener="${estudanteRegistrarBean.esconderLink()}"/>
+                  <f:ajax render="pgLink" listener="#{estudanteRegistrarBean.esconderLink()}"/>
             </h:commandButton>
 
             <h:panelGroup id="pgLink">
@@ -155,10 +155,45 @@ estudante.
 
       <!-- Passando EL para o Bean -->
       <h:form>
-            <h:commandButton value="Calcular Cubo" >
-                  <f:actionListener="${estudanteRegistrarBean.calcularCubo((x->x*x*x),10)}" />
-            </h:commandButton>
+            <h:commandButton value="Calcular Cubo"
+                  actionListener="#{estudanteRegistrarBean.calcularCubo((x->x*x*x),10)}" />
       </h:form>
+
+      <!-- Listas com Lambda-->
+      <br/>
+      <ui:repeat value="#{['Carlos',' Roberto','Medeiros']}" var="nomes">
+            #{nomes}<br/>
+      </ui:repeat>
+
+      <br/>
+      <!-- Sets com Lambda-->
+      <ui:repeat value="#{{'Carlos',' Roberto','Medeiros','Medeiros'}}" var="nomes">
+            #{nomes}<br/>
+      </ui:repeat>
+
+      <br/>
+      <!-- Map com Lambda-->
+      <!-- para essa versão gera erro
+      <ui:repeat value="#{{'Melhor Lugar':'Estudos','Melhor Curso':'Maratonas'}}" var="nomesMaps">
+            <ui:repeat value="#{nomesMaps.entrySet().toArray()}" var="entry">
+                  #{entry.key} - #{entry.value}<br/>
+            </ui:repeat>
+      </ui:repeat>
+      -->
+
+      <!-- Lambda usando stream-->
+      <ui:repeat value="#{[1,2,3,4,5,6,7,8,9,10].stream().filter(v -> v>5).toList()}"
+                 var="resultado">
+            #{resultado}<br/>
+      </ui:repeat>
+      <!-- Media de valores -->
+      #{[1,2,3,4,5,6,7,8,9,10].stream().average().get()}<br/>
+
+      <!-- soma de valores -->
+      #{[1,2,3,4,5,6,7,8,9,10].stream().sum()}<br/>
+
+      <!-- filtro com soma -->
+      #{[1,2,3,4,5,6,7,8,9,10].stream().filter(v -> v>5).sum()}
 
       <!--
       Continuar a partir dos 9:30
