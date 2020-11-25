@@ -7,9 +7,14 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-<f:view>
-      <h:outputLabel value="UHUU chegamos" /><br/>
-      <h:outputText value="#{testeRequestBean.personagemSelecionado}" />
-</f:view>
+<h:head>
+      <h:body>
+            <f:view>
+                  <h:outputText value="#{testeApplicationBean.categoriaList}" /><br/>
+                  <h:outputLabel value="Pegando o valor do Session Bean" /><br/>
+                  <h:outputText value="#{testeSessionBean.personagemSelecionado}" />
+            </f:view>
+      </h:body>
 
+</h:head>
 </html>

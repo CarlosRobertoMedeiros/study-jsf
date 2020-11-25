@@ -1,13 +1,12 @@
-package br.com.roberto.studyjsf.bean.request;
-/*
- *  @criado em: 23/11/2020 - {22:58}
+package br.com.roberto.studyjsf.bean.conversation;/*
+ *  @criado em: 25/11/2020 - {17:35}
  *  @projeto  : study-jsf
  *  @autor    : roberto
  */
 
 
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.ConversationScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -16,16 +15,11 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Named
-@RequestScoped
-public class TesteRequestBean implements Serializable {
+@ConversationScoped
+public class TesteConversationBean implements Serializable {
 
-    private List<String> personagens;
+    private List<String> personagens = Arrays.asList("Seiya","Ikki","Shum","Yoga","Shyriu");
     private List<String> personagemSelecionado = new ArrayList<>();
-
-    @PostConstruct
-    public void init(){
-        personagens = Arrays.asList("Seiya","Ikki","Shum","Yoga","Shyriu");
-    }
 
     public void selecionarPersonagem(){
         int index = ThreadLocalRandom.current().nextInt(3);
@@ -40,4 +34,10 @@ public class TesteRequestBean implements Serializable {
     public void setPersonagemSelecionado(List<String> personagemSelecionado) {
         this.personagemSelecionado = personagemSelecionado;
     }
+
+    public String logOut(){
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return "session?faces-redirect=true";
+    }
+
 }
